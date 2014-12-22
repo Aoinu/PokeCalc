@@ -1645,6 +1645,17 @@ $(function() {
 
     //能力値の計算
     function calc(){
+        Lv = $("#lv").val();
+        pokeNat = $("#nature").val();
+
+        var index = pokeName.indexOf($("#name").val());
+        if(index < 0){
+            console.log("Not found.");
+            pokeNum = 0;
+        }else{
+            pokeNum = index;
+        }
+
         for (var i = pokeParam.length - 1; i > 0; i--) {
             pokeParam[i] = Math.floor(Math.floor(data[pokeNum][i]*2 + Number(DVs[i]) + Number(EVs[i])/4)*Lv/100 + 5)*natData[pokeNat][i-1];
         }
@@ -1672,22 +1683,10 @@ $(function() {
         source: pokeName
     })
     .change(function(){
-        Lv = $("#lv").val();
-        pokeNat = $("#nature").val();
-
-        var index = pokeName.indexOf($("#name").val());
-        if(index < 0){
-            pokeNum = 0;
-        }else{
-            pokeNum = index;
-        }
-
         calc();
         update();
     });
     $("#nature").change(function(){
-        pokeNat = $("#nature").val();
-
         calc();
         update();
     });
@@ -1696,8 +1695,6 @@ $(function() {
         max: 100
     })
     .change(function(){
-        Lv = $("#lv").val();
-
         calc();
         update();
     });
